@@ -3,28 +3,10 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Ionicons,
-  FontAwesome5,
-  Feather,
-  MaterialIcons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 
 export default function HomeScreen() {
-  const features = [
-    { icon: <MaterialIcons name="stars" size={20} color="#4b5563" />, title: 'Horoscope Matching' },
-    { icon: <Feather name="zap" size={20} color="#4b5563" />, title: 'Smart Matching' },
-    { icon: <Ionicons name="shield-checkmark-outline" size={20} color="#4b5563" />, title: 'Privacy Guaranteed' },
-    { icon: <Ionicons name="earth-outline" size={20} color="#4b5563" />, title: 'Global Reach' },
-    { icon: <FontAwesome5 name="user-circle" size={20} color="#4b5563" />, title: 'In-Depth Profiles' },
-    { icon: <Ionicons name="chatbubbles-outline" size={20} color="#4b5563" />, title: 'Secure Messaging' },
-    { icon: <Ionicons name="checkmark-circle-outline" size={20} color="#4b5563" />, title: 'Verified Profiles' },
-    { icon: <Feather name="layout" size={20} color="#4b5563" />, title: 'Profile Template' },
-    { icon: <Feather name="sliders" size={20} color="#4b5563" />, title: 'Custom Preferences' },
-    { icon: <Ionicons name="chatbox-ellipses-outline" size={20} color="#4b5563" />, title: 'Real-Time Chat' },
-    { icon: <Ionicons name="language-outline" size={20} color="#4b5563" />, title: 'Language Preferences' },
-    { icon: <FontAwesome5 name="mobile-alt" size={20} color="#4b5563" />, title: 'Mobile App Support' },
-  ];
-
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
       <ScrollView showsVerticalScrollIndicator={false} className="pb-6">
@@ -78,22 +60,6 @@ export default function HomeScreen() {
               </View>
             ))}
           </ScrollView>
-        </View>
-
-        {/* Features */}
-        <View className="px-4">
-          <Text className="text-lg font-bold text-black mb-3">App Features</Text>
-          <View className="bg-white rounded-xl shadow-sm divide-y divide-gray-200">
-            {features.map((feature, index) => (
-              <TouchableOpacity key={index} className="flex-row items-center px-4 py-4">
-                {feature.icon}
-                <View className="ml-4">
-                  <Text className="text-base text-black font-medium">{feature.title}</Text>
-                  <Text className="text-xs text-gray-500">Explore this feature now</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
         </View>
 
       </ScrollView>

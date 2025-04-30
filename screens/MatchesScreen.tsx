@@ -1,18 +1,34 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  Ionicons,
-  Feather,
-  MaterialCommunityIcons,
-  AntDesign,
-} from '@expo/vector-icons';
+import Swiper from 'react-native-deck-swiper';
+import { Ionicons, Feather, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+
+const { width } = Dimensions.get('window');
+
+const dummyProfiles = [
+  {
+    id: 1,
+    name: 'Priya',
+    age: 26,
+    location: 'London',
+    image: 'https://randomuser.me/api/portraits/women/45.jpg',
+  },
+  {
+    id: 2,
+    name: 'Neha',
+    age: 28,
+    location: 'Chennai',
+    image: 'https://randomuser.me/api/portraits/women/55.jpg',
+  },
+  {
+    id: 3,
+    name: 'Aisha',
+    age: 27,
+    location: 'Bangalore',
+    image: 'https://randomuser.me/api/portraits/women/65.jpg',
+  },
+];
 
 export default function MatchesScreen() {
   const features = [
@@ -58,35 +74,90 @@ export default function MatchesScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-gray-100">
-      <ScrollView className="px-4">
-        {/* Header */}
-        <Text className="text-2xl font-bold text-black mt-4 mb-4">Discover Matches</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View className="mt-4 px-4">
+          <Text className="mb-4 text-2xl font-bold text-black">Swipe Matches</Text>
 
-        {/* Match Features */}
-        <View className="bg-white rounded-xl mb-6 divide-y divide-gray-200 shadow-sm">
-          {features.map((item, index) => (
-            <TouchableOpacity key={index} className="flex-row items-center px-4 py-4">
-              {item.icon}
-              <View className="ml-4">
-                <Text className="text-base text-black font-medium">{item.title}</Text>
-                <Text className="text-xs text-gray-500">{item.subtitle}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
+          {/* Swiper wrapped in fixed-height view */}
+          <View className="mb-10" style={{ height: 440 }}>
+            <Swiper
+              cards={dummyProfiles}
+              renderCard={(card) => (
+                <View
+                  className="overflow-hidden rounded-2xl bg-white shadow-md"
+                  style={{ height: 400 }}>
+                  <Image source={{ uri: card.image }} className="h-64 w-full" />
+                  <View className="p-4">
+                    <Text className="text-lg font-bold text-black">
+                      {card.name}, {card.age}
+                    </Text>
+                    <Text className="text-sm text-gray-600">{card.location}</Text>
+                  </View>
+                </View>
+              )}
+              backgroundColor="transparent"
+              cardHorizontalMargin={16}
+              stackSize={2}
+              stackSeparation={15}
+              verticalSwipe={false}
+              disableBottomSwipe
+              disableTopSwipe
+              overlayLabels={{
+                left: {
+                  title: 'NOPE',
+                  style: {
+                    label: {
+                      backgroundColor: 'red',
+                      color: 'white',
+                      fontSize: 20,
+                      padding: 4,
+                      borderRadius: 4,
+                    },
+                  },
+                },
+                right: {
+                  title: 'LIKE',
+                  style: {
+                    label: {
+                      backgroundColor: 'green',
+                      color: 'white',
+                      fontSize: 20,
+                      padding: 4,
+                      borderRadius: 4,
+                    },
+                  },
+                },
+              }}
+            />
+          </View>
 
-        {/* Preference Settings */}
-        <Text className="text-lg font-semibold text-gray-700 mb-2">Matching Preferences</Text>
-        <View className="bg-white rounded-xl mb-10 divide-y divide-gray-200 shadow-sm">
-          {settings.map((item, index) => (
-            <TouchableOpacity key={index} className="flex-row items-center px-4 py-4">
-              {item.icon}
-              <View className="ml-4">
-                <Text className="text-base text-black font-medium">{item.title}</Text>
-                <Text className="text-xs text-gray-500">{item.subtitle}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+          {/* More Options */}
+          <Text className="mb-2 text-xl font-semibold text-black">More Options</Text>
+          <View className="mb-6 divide-y divide-gray-200 rounded-xl bg-white shadow-sm">
+            {features.map((item, index) => (
+              <TouchableOpacity key={index} className="flex-row items-center px-4 py-4">
+                {item.icon}
+                <View className="ml-4">
+                  <Text className="text-base font-medium text-black">{item.title}</Text>
+                  <Text className="text-xs text-gray-500">{item.subtitle}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {/* Matching Preferences */}
+          <Text className="mb-2 text-lg font-semibold text-gray-700">Matching Preferences</Text>
+          <View className="mb-10 divide-y divide-gray-200 rounded-xl bg-white shadow-sm">
+            {settings.map((item, index) => (
+              <TouchableOpacity key={index} className="flex-row items-center px-4 py-4">
+                {item.icon}
+                <View className="ml-4">
+                  <Text className="text-base font-medium text-black">{item.title}</Text>
+                  <Text className="text-xs text-gray-500">{item.subtitle}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
